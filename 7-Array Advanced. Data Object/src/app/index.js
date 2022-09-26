@@ -22,19 +22,8 @@ const endProgramStr = `Buy, Buy! See you later!.`;
 let checkOperation = function(message, validation, coerce){
     do{
         let messageInput = prompt(message);
-        // if (validation === validationOfInputOperation && messageInput === null) {
-        //     input = undefined;
-        //     break;
-        // }
-        // else if (messageInput === null || validation(messageInput) || messageInput.trim() === '') {
-        //     input = '';
-        //     alert(wrongInfoStr);
-        //     continue;
-        // }
-
-
-        
         input = coerce ? coerce(messageInput) : messageInput;
+        if (validation(input)) { alert(wrongInfoStr) }
     }
     while (validation(input));
     return input;
@@ -76,9 +65,9 @@ const validationOfInputFullName = function(input) {
     input.trim().length > 20;
 };
 const validationOfInputIndexToDelete = function(input) {
-    return isNaN(+input) ||
-    +input < 0 ||
-    +input >= USERS.length
+    return isNaN(input) ||
+    input < 0 ||
+    input >= USERS.length
 }
 
 //CHECK TRUE BIRTHDAY ACCORDING TO THE DATE
@@ -251,16 +240,15 @@ const deleteUser = function() {
     if (checkIfEmptyArchive()) {
         alert(emptyArchiveStr);
     }
+    else {
+        showUsersArchive();
 
-    showUsersArchive();
+        indexToDelete = checkOperation(validationMassageIndexToDelete, validationOfInputIndexToDelete, coerceStringToNumber);
 
-    indexToDelete = checkOperation(validationMassageIndexToDelete, validationOfInputIndexToDelete);
+        showDeletedUserInf();
 
-
-
-    showDeletedUserInf();
-
-    showArchiveAfterDelete();
+        showArchiveAfterDelete();
+    }
 };
 
 //CASE 3
@@ -288,7 +276,8 @@ const showAverageAge = function() {
             middleAge = middleAge + user.age;
             division++;
         }
-        return console.log(`All users approximate age is: ${middleAge / division}`);
+        averageAge = middleAge / division;
+        return console.log(`All users approximate age is: ${averageAge.toFixed(1)}`);
     }
 }
 
