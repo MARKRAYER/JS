@@ -22,15 +22,18 @@ const endProgramStr = `Buy, Buy! See you later!.`;
 let checkOperation = function(message, validation, coerce){
     do{
         let messageInput = prompt(message);
-        if (validation === validationOfInputOperation && messageInput === null) {
-            input = undefined;
-            break;
-        }
-        else if (messageInput === null || validation(messageInput) || messageInput.trim() === '') {
-            input = '';
-            alert(wrongInfoStr);
-            continue;
-        }
+        // if (validation === validationOfInputOperation && messageInput === null) {
+        //     input = undefined;
+        //     break;
+        // }
+        // else if (messageInput === null || validation(messageInput) || messageInput.trim() === '') {
+        //     input = '';
+        //     alert(wrongInfoStr);
+        //     continue;
+        // }
+
+
+        
         input = coerce ? coerce(messageInput) : messageInput;
     }
     while (validation(input));
